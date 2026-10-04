@@ -1,0 +1,56 @@
+{
+ "status": "OK",
+ "data": {
+  "id": 421301,
+  "identifier": "INZBF2",
+  "persistentUrl": "https://doi.org/10.34894/INZBF2",
+  "publicationDate": "2024-04-26",
+  "latestVersion": {
+   "id": 27662,
+   "datasetId": 421301,
+   "datasetPersistentId": "doi:10.34894/INZBF2",
+   "versionNumber": 1,
+   "versionMinorNumber": 0,
+   "versionState": "RELEASED",
+   "releaseTime": "2024-04-26T08:43:37Z",
+   "lastUpdateTime": "2024-04-26T08:43:37Z",
+   "license": {
+    "name": "CC-BY-4.0",
+    "uri": "http://creativecommons.org/licenses/by/4.0",
+    "iconUri": "https://i.creativecommons.org/l/by/4.0/88x31.png"
+   },
+   "files": [
+    {
+     "label": "maddison2023_web.dta",
+     "restricted": false,
+     "dataFile": {
+      "id": 421303,
+      "filename": "maddison2023_web.dta",
+      "contentType": "application/x-stata-14",
+      "filesize": 10892389,
+      "checksum": {
+       "type": "SHA-1",
+       "value": "264862c8a188d4bc770b607663211ec1c4eb0d5d"
+      },
+      "persistentId": ""
+     }
+    },
+    {
+     "label": "mpd2023_web.xlsx",
+     "restricted": false,
+     "dataFile": {
+      "id": 421302,
+      "filename": "mpd2023_web.xlsx",
+      "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "filesize": 4903804,
+      "checksum": {
+       "type": "SHA-1",
+       "value": "1480521f602fbd5df64e108867ac971caa00ed1a"
+      },
+      "persistentId": ""
+     }
+    }
+   ]
+  }
+ }
+}
