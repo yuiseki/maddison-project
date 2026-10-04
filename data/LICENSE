@@ -1,0 +1,43 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Everything under this directory comes from the Maddison Project Database
+(MPD), releases 2018, 2020 and 2023, published by the Groningen Growth and
+Development Centre (GGDC), University of Groningen, at
+https://www.rug.nl/ggdc/historicaldevelopment/maddison/ (the 2023 files on
+DataverseNL, https://doi.org/10.34894/INZBF2).
+
+Each release page, read on 2026-10-05, says that the release "is licensed
+under a Creative Commons Attribution 4.0 International License": version
+2018 by Jutta Bolt, Robert Inklaar, Herman de Jong and Jan Luiten van
+Zanden; versions 2020 and 2023 by Jutta Bolt and Jan Luiten van Zanden.
+DataverseNL gives the 2023 dataset the licence CC-BY-4.0.
+
+The 2020 and 2023 pages ask that all original papers be cited when the data
+is shown in any graphical form, or when a subset of fewer than a dozen (12)
+countries is used for statistical analysis or any other purpose; the list
+of original papers is in the Sources sheet of the database. For 2018 the
+references to the original research are in Appendix A of Bolt et al.
+(2018). Otherwise the MPD as a whole is to be cited. The citation of each
+release is in README.md beside this file.
+
+The files under raw/<release>/ are GGDC's own xlsx, dta and pdf files, byte
+for byte; each release's MANIFEST.json records their URLs, sizes, sha256
+and Last-Modified.
+
+The Parquet under parquet/<release>/ was made from six sheets of the xlsx
+files (2018: Full data, the regional Long data and Composition, the 1990
+benchmark LongForm; 2020 and 2023: Full data):
+
+  - each cell was read as its text and typed by the column's name: year as
+    an integer; gdppc, cgdppc, rgdpnapc and pop as floats; every other
+    column is the text of the cell
+  - rows with no value in any column were left out (126 formatted but empty
+    rows at the foot of the 2018 Full data sheet)
+  - no value was changed, and the rows keep the order of the sheet
+
+The dta files were not read or converted.
+
+The code that fetches, checks and converts lives in the repository this
+dataset was built from, is not part of this dataset, and is not covered by
+this licence.

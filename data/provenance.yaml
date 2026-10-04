@@ -1,0 +1,71 @@
+# Where this data comes from and what was done to it.
+
+source:
+  name: Maddison Project Database (MPD)
+  publisher: Groningen Growth and Development Centre (GGDC), Faculty of Economics and Business, University of Groningen
+  home: https://www.rug.nl/ggdc/historicaldevelopment/maddison/
+  releases: https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/
+  licence:
+    applied: CC BY 4.0 (each release page, read 2026-10-05; DataverseNL CC-BY-4.0 for 2023)
+    attribution_required: true
+    citation_required: the paper each release page names; all original papers (Sources sheet, for 2018 Appendix A of Bolt et al. 2018) when charted or when fewer than 12 countries are used
+    share_alike: false
+  not_taken: MPD 2013 and Maddison Database 2010, whose pages state no licence
+
+releases:
+  note: |
+    Each release is a full revision with its own method; the releases are
+    not one series and cannot be stacked. The files were fetched on
+    2026-10-04. The Parquet is made from the xlsx; the dta files are
+    carried unchanged and were not read.
+  "2023":
+    page: https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023
+    dataverse: {doi: "doi:10.34894/INZBF2", version: "1.0", release_time: "2024-04-26T08:43:37Z"}
+    files:
+      mpd2023_web.xlsx: {bytes: 4903804, sha256: ecc5916ca12789b983fc4be437f8a354bbf4291323605324ac3e0aea4c57cbb6, sha1_stated: 1480521f602fbd5df64e108867ac971caa00ed1a, last_modified: "Sat, 29 Mar 2025 04:11:15 GMT"}
+      maddison2023_web.dta: {bytes: 10892389, sha256: 2bc62ccbd795d4d330ef9ead6dc29c39e956922b43264640eba52d2c244841cb, sha1_stated: 264862c8a188d4bc770b607663211ec1c4eb0d5d, last_modified: "Sat, 29 Mar 2025 04:11:15 GMT"}
+    tables:
+      full_data: {sheet: Full data, rows: 131144, countries: 169, years: 1 to 2022, gdppc_values: 21366, pop_values: 17875}
+  "2020":
+    page: https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2020
+    files:
+      mpd2020.xlsx: {bytes: 1764793, sha256: d20853c2e0930d6855fb6d8138da11f24fcf313d234e2db9773ea1f551adfec3, last_modified: "Fri, 13 Nov 2020 15:33:21 GMT"}
+      mpd2020.dta: {bytes: 1196265, sha256: ebdee22aa4256261db1048f05f3639adcc2f7a9e81cca6cd46ef2e06815e26ca, last_modified: "Mon, 02 Nov 2020 12:43:12 GMT"}
+      wp15.pdf: {bytes: 1023253, sha256: cf0bc7d171db79ed74624684b6f501f9f9fc1e4f43fe951cb5ed283511b586b7, last_modified: "Fri, 13 Nov 2020 16:05:39 GMT"}
+    tables:
+      full_data: {sheet: Full data, rows: 21682, countries: 169, years: 1 to 2018, gdppc_values: 19706, pop_values: 17199}
+  "2018":
+    page: https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2018
+    files:
+      mpd2018.xlsx: {bytes: 1955430, sha256: c6fa87b3044823114e7c9cbfe0fb3b48c4d00163cd17f1198b9d3ae39fe87d78, last_modified: "Thu, 11 Jan 2018 15:04:59 GMT"}
+      mpd2018.dta: {bytes: 1378770, sha256: 13a8f3c54290a59d5f1cb208b60055f561104fce6f919b470404a7b40475f3d8, last_modified: "Thu, 11 Jan 2018 15:04:57 GMT"}
+      gd174.pdf: {bytes: 1630434, sha256: f560d7a213348dcb4f598246e35c460af56fd4b6e2a76fe54278e53948b4d13e, last_modified: "Thu, 11 Jan 2018 14:24:14 GMT"}
+      mpd2018_region_data.xlsx: {bytes: 61702, sha256: 5e90f7d8fc5d44678e36c8568d7f76a22ea9bde1a3665f583133a6e21f0dc2de, last_modified: "Thu, 25 Jan 2018 15:38:16 GMT"}
+      mpd2018_region_data.dta: {bytes: 65426, sha256: f911d7d87e7d2a9914319f0c484e83af3b15768d24b15df311f76758359ae073, last_modified: "Thu, 25 Jan 2018 15:38:16 GMT"}
+      mpd2018_1990bm.xlsx: {bytes: 700128, sha256: 7fe21795e2848fd6dbf38e65a4b4ac6d171d3df065acf042f009cecaaa15e1c4, last_modified: "Thu, 11 Jan 2018 15:05:00 GMT"}
+      mpd2018_1990bm.dta: {bytes: 1006468, sha256: 4aca6ec796249648334eed93301122f6791c4f41c0e723994055c5455572d30f, last_modified: "Thu, 11 Jan 2018 15:04:58 GMT"}
+    tables:
+      full_data: {sheet: Full data, file: mpd2018.xlsx, rows: 19873, countries: 169, years: 1 to 2016, cgdppc_values: 17441, rgdpnapc_values: 17712, pop_values: 16859}
+      regional_data: {sheet: Long data, file: mpd2018_region_data.xlsx, rows: 1039, regions: 8 codes (7 regions and the World), years: 1870 to 2016, values: 761}
+      region_composition: {sheet: Composition, file: mpd2018_region_data.xlsx, rows: 147}
+      benchmark_1990: {sheet: LongForm, file: mpd2018_1990bm.xlsx, rows: 17872, countries: 169, years: 1 to 2016, gdppc_values: 17872}
+
+checked:
+  note: scripts/02_verify.py, before upload
+  items:
+    - every raw file against MANIFEST.json (size, sha256, SHA-1 stated by DataverseNL for 2023) and opened as its type
+    - each sheet re-read with the Python standard library alone (zipfile, xml.etree); its row count equals the Parquet's and the pinned count
+    - every value equals its cell, typed the same way, row by row in sheet order (sha256 over all values on both sides)
+    - columns are the sheet's header, each of the type its name gives
+    - key unique (countrycode and year; region and year; countrycode)
+    - a DuckDB with no extension loaded opens every file
+    - no bloom filters
+
+modifications:
+  raw: none. GGDC's xlsx, dta and pdf, byte for byte.
+  parquet:
+    - read from the xlsx with DuckDB's excel extension, every cell as text
+    - typed by column name (year INTEGER; gdppc, cgdppc, rgdpnapc, pop DOUBLE; the rest text); a value that does not fit stops the build
+    - rows with no value in any column left out (126 at the foot of the 2018 Full data sheet)
+    - empty strings in the 2018 i_cig and i_bm kept as empty strings
+    - sheet order kept; zstd; no bloom filters

@@ -49,3 +49,37 @@ def test_csv_rows_and_gzip(tmp_path):
     g = tmp_path / "a.gz"
     g.write_bytes(gzip.compress(b"x" * 1000))
     assert v.check_content(g) == (True, "gzip ok, 1,000 bytes inside")
+
+
+def test_xlsx_sheet_read_with_the_standard_library(tmp_path):
+    from conftest import Num, write_xlsx
+
+    p = write_xlsx(
+        tmp_path / "t.xlsx",
+        {
+            "Legend": [["note"]],
+            "Full data": [
+                ["countrycode", "year", "gdppc", "i_cig"],
+                ["AZE", Num("2001"), Num("4498.7943999999998"), ""],
+                [None, None, None, None],
+                ["AFG", Num("1820"), None, "Extrapolated"],
+            ],
+        },
+    )
+    header, rows = v.read_sheet(p, "Full data")
+    assert header == ["countrycode", "year", "gdppc", "i_cig"]
+    assert rows == [
+        ["AZE", "2001", "4498.7943999999998", ""],
+        ["AFG", "1820", None, "Extrapolated"],
+    ]
+
+
+def test_raw_cells_are_typed_as_the_export_types_them():
+    types = ["VARCHAR", "INTEGER", "DOUBLE", "VARCHAR"]
+    assert v.typed(["AZE", "2001", "4498.7943999999998", ""], types) == (
+        "AZE",
+        2001,
+        4498.7944,
+        "",
+    )
+    assert v.typed(["AFG", "1820", None, None], types) == ("AFG", 1820, None, None)

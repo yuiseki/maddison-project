@@ -43,15 +43,38 @@ dozen (12) countries is used for statistical analysis or any other purpose.
 The list of original papers is in the Sources sheet of the database (for
 2018, Appendix A of Bolt et al. 2018). Otherwise the MPD as a whole is cited.
 
-The code in this repository fetches and checks the files; it does not change them.
+The code in this repository fetches and checks the files; it does not change
+them. The Parquet it makes from them is described in `data/README.md`, the
+dataset card.
 
 ## Running it
 
 ```sh
-uv run python scripts/01_download.py   # fetch what is missing
-uv run python scripts/02_verify.py     # re-check every file against its manifest
-uv run python -m pytest                # parsing tests on trimmed real pages
+uv run python scripts/01_download.py        # fetch what is missing
+uv run python scripts/03_export_parquet.py  # xlsx sheets -> data/parquet/<release>/<table>.parquet
+uv run python scripts/02_verify.py          # re-check the raw files and the Parquet
+uv run python -m pytest                     # parsing, typing and xlsx tests
+uv run python src/publish.py                # dry run: what would go to the Hub
+uv run python src/publish.py --push         # upload to yuiseki/maddison-project
 ```
+
+`03_export_parquet.py` reads six sheets with DuckDB's excel extension
+(`install excel` fetches it on first use) and writes one Parquet per table:
+`full_data` for 2018, 2020 and 2023, and for 2018 also `regional_data`,
+`region_composition` and `benchmark_1990`. Every cell is read as text and
+typed by column name (year INTEGER; gdppc, cgdppc, rgdpnapc, pop DOUBLE; the
+rest text); a value that does not fit stops the run. The dta files are not
+read.
+
+`02_verify.py` also re-reads each sheet with the standard library alone and
+compares every value and the row count with the Parquet, checks the column
+types, key uniqueness, that a DuckDB without extensions opens each file, and
+that there are no bloom filters.
+
+`publish.py` uploads `data/README.md`, `data/LICENSE`, `data/provenance.yaml`,
+the Parquet and the raw files unchanged. It refuses when a Parquet file is
+not a subset in the card or a raw file's sha256 is not the one in its
+manifest.
 
 `01_download.py` uses only the Python standard library. It finds the release
 pages on the official listing, refuses a release page that does not link CC BY
@@ -64,10 +87,14 @@ manifest with the same sha256 is not fetched again.
 
 ```
 scripts/01_download.py        release pages -> files -> data/raw/<release>/ and MANIFEST.json
-scripts/02_verify.py          sha256, stated SHA-1, zip test of xlsx, Stata and PDF headers
-tests/                        parsing tests
+scripts/02_verify.py          sha256, stated SHA-1, zip test of xlsx, Stata and PDF headers; Parquet checks
+scripts/03_export_parquet.py  xlsx sheets -> data/parquet/<release>/<table>.parquet
+src/publish.py                dry run, or --push to the Hugging Face Hub
+tests/                        parsing, typing and xlsx tests (conftest.py writes small xlsx files)
 tests/fixtures/               trimmed copies of the listing, release pages and dataset API response
 data/raw/<release>/           generated: the files as served, and MANIFEST.json
+data/parquet/<release>/       generated: one Parquet per table
+data/README.md, LICENSE, provenance.yaml   the dataset card and what goes with it (tracked)
 ```
 
 `MANIFEST.json` records the release page, the licence check, for 2023 the
